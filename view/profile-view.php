@@ -11,8 +11,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 get_header();
 ?>
+
 <div class="profile">
     <h1 class="profile__title">Your Profile</h1>
+
+    <!-- Avatar Preview and Upload -->
+    <div class="profile__image-section">
+        <img id="profile-image-preview" src="<?php echo esc_url( $current_user->profileImage ?: plugin_dir_url(__FILE__) . '../assets/img/default-avatar.svg' ); ?>" alt="Profile Photo">
+        <button id="open-image-modal" class="profile__upload-btn">Click to upload</button>
+    </div>
+
+    <!-- Modal -->
+    <div id="image-upload-modal" class="modal">
+        <div class="modal__content">
+            <div id="profile-image-upload-wrapper">
+                <input type="file" id="profile-image-upload" name="filepond" />
+            </div>
+            <button id="update-image-button" class="modal__save">Update</button>
+            <button id="close-image-modal" class="modal__cancel">Cancel</button>
+        </div>
+    </div>
 
     <?php $fields = ['username' => 'Username','name' => 'Full Name','email' => 'Email','birth' => 'Birth Date']; ?>
     <?php foreach ( $fields as $key => $label ) : ?>
@@ -46,5 +64,6 @@ get_header();
         <a href="<?php echo esc_url( home_url( '/logout' ) ); ?>" class="profile__logout-button">Logout</a>
     </div>
 </div>
+
 <?php
 get_footer();

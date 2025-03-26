@@ -33,6 +33,8 @@ require_once LINES_AUTH_PLUGIN_PATH . 'includes/rewrite-rules.php';
 require_once LINES_AUTH_PLUGIN_PATH . 'includes/auth-functions.php';
 // Include Google OAuth config.
 require_once LINES_AUTH_PLUGIN_PATH . 'includes/google-config.php';
+// Include upload handler
+require_once LINES_AUTH_PLUGIN_PATH . 'includes/upload-handler.php';
 
 // Enqueue plugin assets.
 add_action( 'wp_enqueue_scripts', 'lines_auth_plugin_enqueue_assets' );
@@ -240,3 +242,9 @@ function lines_auth_plugin_ajax_reset(){
     $controller->process_ajax_reset();
     wp_die();
 }
+
+// debug
+error_log(print_r($_FILES, true));
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);

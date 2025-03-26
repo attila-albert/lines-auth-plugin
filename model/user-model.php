@@ -14,10 +14,10 @@ class User_Model {
      */
     public function create_table() {
         global $wpdb;
-        $table = $wpdb->prefix . self::TABLE_NAME;
-        $charset = $wpdb->get_charset_collate();
-
-        $sql = "CREATE TABLE {$table} (
+        $table_name     = $wpdb->prefix . self::TABLE_NAME;
+        $charset_collate = $wpdb->get_charset_collate();
+    
+        $sql = "CREATE TABLE $table_name (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             username VARCHAR(32) NOT NULL,
             passwordHash VARCHAR(60) NOT NULL,
@@ -29,15 +29,16 @@ class User_Model {
             notificationsFlags INT(11) DEFAULT 0,
             flags INT(11) DEFAULT 0,
             birth DATE NOT NULL,
+            profileImage VARCHAR(255) DEFAULT NULL,
             source VARCHAR(255) DEFAULT '',
-            PRIMARY KEY (id),
+            PRIMARY KEY  (id),
             UNIQUE KEY username (username),
             UNIQUE KEY email (email)
-        ) {$charset};";
-
+        ) $charset_collate;";
+        
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta( $sql );
-    }
+    }    
 
     /**
      * Create a new user.
